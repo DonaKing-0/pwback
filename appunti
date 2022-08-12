@@ -1,0 +1,34 @@
+creare i seguenti endpoint 
+-creaprod
+      -copia prod?
+
+-listaprod
+-singoloprod
+-eliminaprod
+-modprod
+
+
+
+localstorage
+sessionstorage
+
+
+2 valida jwt diversi
+-uno per admin
+-uno per utenti
+
+ne metto solo uno per ogni route   
+(altrimenti se un utente ha credenziali = admin    non riconosco piu)         non va bene (x es per modifica profilo    ognuno il suo)
+
+route per entrambi ->no
+->duplicate
+
+utente log in solo per prenotaz 
+-->no jwt solo per vedere -->non serve duplicare
+
+
+fare lista route  cosa fanno
+
+https://axios-http.com/docs/res_schema
+
+https://dev.to/ebereplenty/hosting-a-nodejs-and-mongodb-app-on-heroku-38b8
