@@ -8,14 +8,3 @@ const altroSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('altro', altroSchema);
-
-/*
-entita
-
-stagioni        ...
-categorie       ...
-unitamisura     ...
-
-*/
-
-//urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;

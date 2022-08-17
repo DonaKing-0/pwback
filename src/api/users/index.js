@@ -24,7 +24,7 @@ const ObjectId = mongoose.Types.ObjectId
 //lista utenti
 //admin
 router.get("/", adminjwt, async function (request, response) {
-  const lista = await usersmodel.find();               //vero json
+  const lista = await usersmodel.find();
   return response.json(_.map(lista, (user) => _.omit(user.toJSON(), ['password', '__v'])));
 });
 
@@ -32,9 +32,7 @@ router.get("/", adminjwt, async function (request, response) {
 //non admin
 router.get("/id/:id", userjwt, async function (request, response) {
 
-
-  //controlla sia user giusto 
-
+  //controlla sia user giusto
 
 console.log(request.params)
   //valida id...
@@ -46,15 +44,6 @@ console.log(request.params)
       const element = await usersmodel.findOne({ _id: request.params.id });
       console.log(element)
       return element ? response.json(_.omit(element, ['__v', '_id'])) : response.sendStatus(404);
-    /*  if (element.length === 0) {
-        response.sendStatus(404);
-      } else {
-        //element array
-        const e = element[0].toJSON();
-        response.json(_.omit(e, ['__v', 'password']));
-      }
-      //return element ? response.json(_.omit(element, 'password')) : response.sendStatus(404);
-    */
     }else{
       response.sendStatus(401);
     }
@@ -73,15 +62,7 @@ router.get("/:username", userjwt, async function (request, response) {
   if(e && e.username==request.params.username){//controllo stesso username
     const element = await usersmodel.findOne({ username: request.params.username });
     return element ? response.json(_.omit(element, ['__v', '_id'])) : response.sendStatus(404);
-  /*  if (element.length === 0) {
-      response.sendStatus(404);
-    } else {
-      //element array
-      const e = element[0].toJSON();
-      response.json(_.omit(e, ['__v', 'password']));
-    }
-    //return element ? response.json(_.omit(element, 'password')) : response.sendStatus(404);
-  */
+
   }else{
     response.sendStatus(401);
   }
@@ -92,10 +73,6 @@ router.post("/"/*, validateJWT*/, async function (request, response) {
 
   //controlla errori --> se non ci sono tutti campi
   //non username doppi
-  /*const user = new usersmodel({
-    username: request.body.username,
-    password: request.body.password,
-  });*/
 
   if(request.body.username==undefined || request.body.username=='' || request.body.password==undefined || request.body.password ==''){
     response.send("inserire username e password");
@@ -107,9 +84,7 @@ router.post("/"/*, validateJWT*/, async function (request, response) {
       }else{
         request.body.username=request.body.username.trimStart().trimEnd();
         request.body.password=request.body.password.trimStart().trimEnd();      
-      
-        //sse ritorna ''?     rivedi anche in prodotti --->ok
-    
+          
         const element = await usersmodel.findOne({ username: request.body.username });
         if(element){
           response.send("username già usato");
@@ -118,8 +93,6 @@ router.post("/"/*, validateJWT*/, async function (request, response) {
           return response.json(await usersmodel.create(request.body));
         }
       }
-      //await user.save();
-      //return response.sendStatus(201);
   }
 });
 
@@ -129,27 +102,20 @@ router.put("/id/:id", userjwt, async function (request, response) {
   if(isValidObjectId(request.params.id)){
 
     if(request.decoded.user.id.toString()==request.params.id){
-      const trovato = (await usersmodel.find({ _id: request.params.id }))[0];//gia preso oggetto non array
+      const trovato = (await usersmodel.find({ _id: request.params.id }))[0];
 
-      //const nuovo= new usersmodel();
-      //c'e' altro modo?
-
-      if(trovato){//??  
+      if(trovato){
         const el= _.omit(request.body, ['_id', 'username']);//non modificabili
 
         console.log("Modificato utente: ");
         console.log(el);
 
-      /* if (request.body.password !== undefined) {
-          trovato.password = request.body.pass;
-        }*/
         const fin = await usersmodel.findByIdAndUpdate(request.params.id, el);
         if (fin.length === 0) {//non c'e' piu
           response.sendStatus(404);
         } else {
           response.json(_.omit(fin.toJSON(), ['__v', '_id']));
         }
-        //return element ? response.json(element) : response.sendStatus(404);
       }else{
         response.sendStatus(404);
       }
@@ -169,25 +135,15 @@ router.put("/:username", userjwt, async function (request, response) {
   const e = await usersmodel.findOne({ _id: request.decoded.user.id.toString() });
 
   if(e && e.username==request.params.username){//controllo stesso username
-    const trovato = (await usersmodel.find({ username: request.params.username }))[0];//gia preso oggetto non array
+    const trovato = (await usersmodel.find({ username: request.params.username }))[0];
 
-    //const nuovo= new usersmodel();
-    //c'e' altro modo?
-
-    if(trovato){//??  
+    if(trovato){
       const el= _.omit(request.body, ['_id', 'username']);//non modificabili
-
-      //se aggiunti campi nel req.body li aggiunge?!    sembra di no
 
       console.log("Modificato utente: ");
       console.log(el);
 
-    /* if (request.body.password !== undefined) {
-        trovato.password = request.body.pass;
-      }*/
       const fin = await usersmodel.findOne({ username: request.params.username });
-
-      //manca  update
 
       if (fin.length === 0) {//non c'e' piu
         response.sendStatus(404);
@@ -196,7 +152,6 @@ router.put("/:username", userjwt, async function (request, response) {
         await fin.save();
         response.json(_.omit(fin.toJSON(), ['__v', '_id']));
       }
-      //return element ? response.json(element) : response.sendStatus(404);
     }else{
       response.sendStatus(404);
     }

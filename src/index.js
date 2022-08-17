@@ -7,7 +7,6 @@ await mongooseInit();
 
 const app = express();
 
-// NECESSARIO PER LEGGERE IL BODY JSON IN POST E PUT
 app.use(express.json());
 
 app.use(api)

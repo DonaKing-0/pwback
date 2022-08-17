@@ -1,11 +1,4 @@
 import mongoose from 'mongoose'
-import altroSchema from '../altro/model.js'
-/* //rimangono undefined
-console.log(await altroSchema.findOne().stagioni)
-const a= await altroSchema.findOne().stagioni;
-console.log('a')
-console.log(a)*/
-
 
 const prodSchema = new mongoose.Schema({
     nome: { type: String, unique: true, required: true},//univoco
@@ -15,6 +8,8 @@ const prodSchema = new mongoose.Schema({
     disponibile: {type: Boolean, default: false},
     quantita: {type: Number, min: 0, default: 0},
     unitamisura: { type: String },
+
+    prezzo: {type: Number, min: 0, default: 0},
 
     offerta: {type: Boolean, default: false},
 
@@ -26,14 +21,3 @@ const prodSchema = new mongoose.Schema({
 });
 
 export default mongoose.model('Prodotti', prodSchema);
-
-/*
-entita
-
-stagioni        ...
-categorie       ...
-unitamisura     ...
-
-*/
-
-//urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
