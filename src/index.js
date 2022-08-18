@@ -6,6 +6,13 @@ import mongooseInit from './services/db/mongoose.js'
 await mongooseInit();
 
 const app = express();
+import cors from "cors";
+
+app.use(
+    cors({
+        origin: 'http://localhost:3000'
+    })
+)
 
 app.use(express.json());
 
