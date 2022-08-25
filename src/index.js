@@ -10,7 +10,7 @@ import cors from "cors";
 
 app.use(
     cors({
-        origin: ['http://localhost:3000', 'https://donaking-0.github.io/pwfront/', 'https://donaking-0.github.io/']
+        origin: ['http://localhost:3000', 'https://donaking-0.github.io/pwfront/', 'https://donaking-0.github.io']
     })
 )
 
