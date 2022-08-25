@@ -50,6 +50,7 @@ router.put("/aggstag", adminjwt, async function (request, response) {
     if(request.body.stagione!=undefined && request.body.stagione!=''){
 
       console.log("mod ")
+      //va anche nell'if!
       request.body.stagione=request.body.stagione.trimStart().trimEnd();
       console.log(request.body);
 
